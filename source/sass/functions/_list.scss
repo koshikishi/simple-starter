@@ -1,0 +1,21 @@
+@use "sass:list";
+@use "sass:meta";
+
+/// Retrieves the $index-th items of the $list sublists.
+///
+/// @param {list} $list - a list of sublists
+/// @param {number} $index - an index of a list item to be retrieved
+/// @return {list} - a new list from the $index-th items of the $list sublists
+@function nth-of-lists($list, $index) {
+  $new-list: ();
+
+  @if meta.type-of(list.nth($list, 1)) != list {
+    @return (list.nth($list, $index));
+  }
+
+  @each $sublist in $list {
+    $new-list: list.append($new-list, list.nth($sublist, $index), comma);
+  }
+
+  @return $new-list;
+}

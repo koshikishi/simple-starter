@@ -1,0 +1,54 @@
+@use "sass:list";
+@use "sass:meta";
+
+/// Creates a @media at-rule to apply styles for retina displays.
+///
+/// @param {number} $dppx [2] - a pixel density of the display (unitless value)
+/// @output a @media at-rule for targeting retina displays
+@mixin retina($dppx: 2) {
+  @media #{media-query($min-resolution: $dppx * 96dpi)} {
+    @content;
+  }
+}
+
+/// Sets a retina background image on an element.
+///
+/// @param {list} $images - a space-separated list of image filenames in ascending order of size (each filename must be quoted) or a list of lists for multiple backgrounds
+/// @param {string | number | list} $sizes - a size of the background image (any valid value of the background-size property) or a list of sizes for multiple backgrounds
+/// @output a block of styles for retina background image
+///
+/// @example scss - setting a retina background to .foo
+///   .foo {
+///     @include background-retina("image.jpg" "image@2x.jpg", 100px 50px);
+///   }
+///
+/// @example scss - setting two retina backgrounds to .foo
+///   .foo {
+///     @include background-retina(["image1.jpg" "image1@2x.jpg", "image2.jpg" "image2@2x.jpg"], [100px 50px, contain]);
+///   }
+@mixin background-retina($images, $sizes) {
+  // stylelint-disable order/order
+  $is-multiple: meta.type-of(list.nth($images, 1)) == list;
+  $max-retina: list.length(if($is-multiple, list.nth($images, 1), $images));
+  $background-normal: ();
+
+  @each $image in nth-of-lists($images, 1) {
+    $background-normal: list.append($background-normal, to-url($image), comma);
+  }
+
+  background-image: $background-normal;
+  background-size: list.join($sizes, (), $bracketed: false); // to get rid of the square brackets
+
+  @for $i from 2 through $max-retina {
+    $background-retina: ();
+
+    @each $image in nth-of-lists($images, $i) {
+      $background-retina: list.append($background-retina, to-url($image), comma);
+    }
+
+    @include retina($i) {
+      background-image: $background-retina;
+    }
+  }
+  // stylelint-enable order/order
+}
