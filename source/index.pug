@@ -1,0 +1,14 @@
+extends pug/layout
+
+prepend variables
+  //-
+
+append variables
+  -
+    title = 'Simple Starter';
+    description = 'Basic skeleton to start development (pug + sass)';
+
+block content
+  include pug/components/header
+  include pug/pages/main
+  include pug/components/footer

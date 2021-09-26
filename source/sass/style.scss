@@ -1,0 +1,15 @@
+// Global
+@import "variables";
+@import "functions";
+@import "mixins";
+@import "fonts";
+@import "vendor";
+@import "global";
+@import "helpers";
+
+// Components
+@import "components/header";
+@import "components/footer";
+
+// Pages
+@import "pages/main";

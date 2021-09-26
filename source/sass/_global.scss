@@ -1,0 +1,28 @@
+:root {
+  --color-white: #ffffff;
+  --color-black: #000000;
+}
+
+html {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  font-family: $font-primary;
+}
+
+body {
+  min-width: $width-mobile;
+  color: var(--color-black);
+  text-size-adjust: 100%;
+  background-color: var(--color-white);
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
