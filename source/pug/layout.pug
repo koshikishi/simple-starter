@@ -2,8 +2,10 @@ include mixins
 
 block variables
   -
-    const title = '';
-    const description = '';
+    const site = {
+      title: title ?? '',
+      description: description ?? '',
+    };
 
     const breakpoints = {
       desktop: 1440,
@@ -32,7 +34,7 @@ block variables
       },
       {
         name: 'description',
-        content: description,
+        content: site.description,
       },
     ];
 
@@ -51,7 +53,7 @@ html(class=html.classList)&attributes(html.attributes)
     block meta
       each attributes in meta
         meta&attributes(attributes)
-    title!= title
+    title!= site.title
     block preloads
       each preload in preloads
         if typeof preload === 'string'

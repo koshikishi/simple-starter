@@ -1,13 +1,12 @@
 extends pug/layout
 
 prepend variables
-  //-
+  -
+    const title = 'Simple Starter';
+    const description = 'Basic skeleton to start development (pug + sass)';
 
 append variables
   -
-    title = 'Simple Starter';
-    description = 'Basic skeleton to start development (pug + sass)';
-
     html.classList.push('no-js');
 
     meta.push({
@@ -35,6 +34,7 @@ append variables
     });
 
 block content
+  //- include pug/data
   //- include pug/sprite
 
   include pug/components/header
