@@ -1,0 +1,80 @@
+//-
+  Outputs a <source> element based on the passed arguments for use in the +picture mixin.
+
+  @param {string} srcSet - a list of one or more comma-separated strings indicating a set of possible images (generates by the getSrcSet() function)
+  @param {string} extension - an extension of the specified image files
+  @param {(number|null)} [size=null] - a minimum viewport width for media condition (unitless value), or null if no media conditions are specified
+mixin source(srcSet, extension, size=null)
+  -
+    let type = null;
+
+    switch (extension) {
+      case 'jpg':
+      case 'jpeg':
+        type = 'image/jpeg';
+        break;
+      case 'svg':
+        type = 'image/svg+xml';
+        break;
+      default:
+        type = `image/${extension}`;
+    }
+
+  source(srcset=srcSet media=size && `(min-width: ${size}px)` type=type)
+
+//-
+  Outputs a <picture> element of the specified image, based on the passed arguments.
+
+  @param {string} fileName - an image file name without extension
+  @param {string} alt - an alternative text description of the image
+  @param {number} width - a width of the image (unitless integer value)
+  @param {number} height - a height of the image (unitless integer value)
+  @param {string[]} extensions - an array of extensions to use in the following order: from the most modern format to the most supported fallback (eg: ['avif', 'webp', 'jpg'])
+  @param {Object} [options] - additional options (see below)
+  @param {(string|string[]|null)} [options.classList=null] - a class of an <img> element, or an array of classes, or null if no class is specified
+  @param {(number|boolean)} [options.retina=2] - a pixel density descriptor (integer unitless value), or true for the pixel density 2x, or false if no retina support is intended
+  @param {Object} [options.breakpoints] - a keyed collection of screen resolutions: the key is the resolution name and the value is the viewport width (eg: {desktop: 1280, tablet: 750}); if not specified it uses the value of the 'breakpoints' constant in layout.pug
+mixin picture(fileName, alt, width, height, extensions, options={})
+  -
+    const {
+      classList = null,
+      retina = 2,
+      breakpoints = breakpoints,
+    } = options;
+
+    const fallbackExtension = extensions[extensions.length - 1];
+
+    /**
+     * Generates a comma-separated list of strings indicating a set of possible images for use in a srcset attribute.
+
+     * @param {string} extension - an extension of the specified image files
+     * @param {(string|null)} [device=null] - a name of a device for which the image is intended, or null if no device is specified
+     * @return {string} - a comma-separated list of strings indicating a set of possible images
+     */
+    const getSrcSet = (extension, device = null) => {
+      if (!retina || retina === 1) {
+        return `img/${fileName}${device ? `-${device}` : ''}.${extension}`;
+      }
+
+      const srcSet = [];
+
+      for (let i = 1; i <= (retina === true ? 2 : retina); i++) {
+        srcSet.push(`img/${fileName}${device ? `-${device}` : ''}${i === 1 ? '' : `@${i}x`}.${extension} ${i}x`);
+      }
+
+      return srcSet.join(', ');
+    };
+
+  picture
+    each device, size in breakpoints ? breakpoints : {}
+      each extension in extensions
+        +source(getSrcSet(extension, device), extension, size)
+    each extension in extensions.slice(0, -1)
+      +source(getSrcSet(extension), extension)
+    img(
+      class=classList
+      src=`img/${fileName}.${fallbackExtension}`
+      srcset=(retina === true || retina > 1) ? getSrcSet(fallbackExtension).split(', ').slice(1).join(', ') : null
+      alt=alt
+      width=width
+      height=height)&attributes(attributes)
