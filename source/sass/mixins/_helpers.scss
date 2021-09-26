@@ -19,3 +19,14 @@
   padding-left: 0;
   list-style: none;
 }
+
+/// Truncates contents of a block to the specified number of lines and adds an ellipsis to represent clipped text.
+///
+/// @param {number} $number - a number of lines after which the content will be clamped
+/// @output a block of styles for truncating the content
+@mixin line-clamp($number) {
+  display: -webkit-box; // stylelint-disable-line value-no-vendor-prefix
+  overflow: hidden;
+  -webkit-line-clamp: $number;
+  -webkit-box-orient: vertical; // stylelint-disable-line property-no-vendor-prefix
+}
