@@ -15,6 +15,7 @@
 ///
 /// @param {list} $images - a space-separated list of image filenames in ascending order of size (each filename must be quoted) or a list of lists for multiple backgrounds
 /// @param {string | number | list} $sizes - a size of the background image (any valid value of the background-size property) or a list of sizes for multiple backgrounds
+/// @param {string | list | null} $extensions [null] - an image format extension or a list of extensions for setting a background in modern format (WebP, AVIF), or null if no such formats are used
 /// @output a block of styles for retina background image
 ///
 /// @example scss - setting a retina background to .foo
@@ -26,7 +27,12 @@
 ///   .foo {
 ///     @include background-retina(["image1.jpg" "image1@2x.jpg", "image2.jpg" "image2@2x.jpg"], [100px 50px, contain]);
 ///   }
-@mixin background-retina($images, $sizes) {
+///
+/// @example scss - setting a retina background in WebP to .foo
+///   .foo {
+///     @include background-retina("image.jpg" "image@2x.jpg", 100px 50px, webp);
+///   }
+@mixin background-retina($images, $sizes, $extensions: null) {
   // stylelint-disable order/order
   $is-multiple: meta.type-of(list.nth($images, 1)) == list;
   $max-retina: list.length(if($is-multiple, list.nth($images, 1), $images));
@@ -36,7 +42,12 @@
     $background-normal: list.append($background-normal, to-url($image), comma);
   }
 
-  background-image: $background-normal;
+  @if $extensions {
+    @include background-modern($background-normal, $extensions);
+  } @else {
+    background-image: $background-normal;
+  }
+
   background-size: list.join($sizes, (), $bracketed: false); // to get rid of the square brackets
 
   @for $i from 2 through $max-retina {
@@ -47,7 +58,11 @@
     }
 
     @include retina($i) {
-      background-image: $background-retina;
+      @if $extensions {
+        @include background-modern($background-retina, $extensions);
+      } @else {
+        background-image: $background-retina;
+      }
     }
   }
   // stylelint-enable order/order
