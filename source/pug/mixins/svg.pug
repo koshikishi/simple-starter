@@ -1,0 +1,9 @@
+//-
+  Outputs an SVG-icon from the sprite.
+
+  @param {string} iconName - a name of the icon in the sprite without the 'icon-' prefix
+  @param {number} width - a width of the icon (unitless integer value)
+  @param {number} height - a height of the icon (unitless integer value)
+mixin svg(iconName, width, height)
+  svg(width=width height=height)&attributes(attributes)
+    use(href=`img/sprite.svg#icon-${iconName}`)
