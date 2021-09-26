@@ -1,0 +1,81 @@
+/// Creates a @media at-rule to apply styles for viewports with a width equal or greater than the specified.
+///
+/// @param {number} $min - a minimum viewport width (must have a unit)
+/// @output a @media at-rule for targeting viewports with a width equal or greater than the specified
+@mixin media-min($min) {
+  @media #{media-query($min-width: $min)} {
+    @content;
+  }
+}
+
+/// Creates a @media at-rule to apply styles for viewports with a width less than the specified.
+///
+/// @param {number} $max - a maximum viewport width (must have a unit)
+/// @output a @media at-rule for targeting viewports with a width less than the specified
+@mixin media-max($max) {
+  @media #{media-query($max-width: $max - 1px)} {
+    @content;
+  }
+}
+
+/// Creates a @media at-rule to apply styles for viewports with a width in the specified range.
+///
+/// @param {number} $min - a minimum viewport width (must have a unit)
+/// @param {number} $max - a maximum viewport width (must have a unit)
+/// @param {string | bool} $orientation [false] - an optional argument to specify a viewport orientation (landscape or portrait)
+/// @output a @media at-rule for targeting viewports with a width in the specified range
+@mixin media-min-max($min, $max, $orientation: false) {
+  @media #{media-query($min-width: $min, $max-width: $max - 1, $orientation: $orientation)} {
+    @content;
+  }
+}
+
+/// Creates a @media at-rule to apply styles for viewports with a height equal or greater than the specified.
+///
+/// @param {number} $min - a minimum viewport height (must have a unit)
+/// @output a @media at-rule for targeting viewports with a height equal or greater than the specified
+@mixin media-min-height($min) {
+  @media #{media-query($min-height: $min)} {
+    @content;
+  }
+}
+
+/// Creates a @media at-rule to apply styles for viewports with a height less than the specified.
+///
+/// @param {number} $max - a maximum viewport height (must have a unit)
+/// @output a @media at-rule for targeting viewports with a height less than the specified
+@mixin media-max-height($max) {
+  @media #{media-query($max-height: $max - 1px)} {
+    @content;
+  }
+}
+
+/// Creates a @media at-rule to apply styles for viewports with a height in the specified range.
+///
+/// @param {number} $min - a minimum viewport height (must have a unit)
+/// @param {number} $max - a maximum viewport height (must have a unit)
+/// @param {string | bool} $orientation [false] - an optional argument to specify a viewport orientation (landscape or portrait)
+/// @output a @media at-rule for targeting viewports with a height in the specified range
+@mixin media-min-max-height($min, $max, $orientation: false) {
+  @media #{media-query($min-height: $min, $max-height: $max - 1, $orientation: $orientation)} {
+    @content;
+  }
+}
+
+/// Creates a @media at-rule to apply styles for viewports with the landscape orientation.
+///
+/// @output a @media at-rule for targeting viewports with the landscape orientation
+@mixin landscape() {
+  @media #{media-query($orientation: landscape)} {
+    @content;
+  }
+}
+
+/// Creates a @media at-rule to apply styles for viewports with the portrait orientation.
+///
+/// @output a @media at-rule for targeting viewports with the portrait orientation
+@mixin portrait() {
+  @media #{media-query($orientation: portrait)} {
+    @content;
+  }
+}

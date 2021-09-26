@@ -1,0 +1,26 @@
+@use "sass:map";
+@use "sass:meta";
+
+/// Generates a media query based on the passed arguments.
+///
+/// @param {arglist} $arguments - an argument list of keys and values; the key is any valid media feature or type while the value is any valid value of that media feature or type (eg: $min-width: 768px, $orientation: landscape)
+/// @return {string} - a media query based on the passed $arguments
+@function media-query($arguments...) {
+  $arguments: meta.keywords($arguments);
+  $media-type: "only screen";
+  $media-type-key: "media-type";
+  $expression: "";
+
+  @if map.has-key($arguments, $media-type-key) {
+    $media-type: map.get($arguments, $media-type-key);
+    $arguments: map.remove($arguments, $media-type-key);
+  }
+
+  @each $key, $value in $arguments {
+    @if $value {
+      $expression: "#{$expression} and (#{$key}: #{$value})";
+    }
+  }
+
+  @return "#{$media-type} #{$expression}";
+}
