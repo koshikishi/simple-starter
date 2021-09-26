@@ -1,0 +1,43 @@
+/// Draws a triangle (arrow) in pure CSS using the border property.
+///
+/// @param {list} $direction - a direction the arrow points to; a value consists of the word "to" and up to two keywords indicating the vertical and the horizontal side (eg: to top left)
+/// @param {number} $width - a width of the triangle (must have a unit)
+/// @param {number} $height - a height of the triangle (must have a unit)
+/// @param {color} $color - a color of the triangle (any valid color value)
+/// @output a block of styles for drawing the triangle
+///
+/// @example scss - drawing a black arrow pointing to the right
+///   .foo {
+///     @include triangle(to right, 7px, 10px, #000000);
+///   }
+@mixin triangle($direction, $width, $height, $color) {
+  width: 0;
+  height: 0;
+  border-style: solid;
+
+  @if $direction == (to top) {
+    border-width: 0 $width / 2 $height;
+    border-color: transparent transparent $color;
+  } @else if $direction == (to right) {
+    border-width: $height / 2 0 $height / 2 $width;
+    border-color: transparent transparent transparent $color;
+  } @else if $direction == (to bottom) {
+    border-width: $height $width / 2 0;
+    border-color: $color transparent transparent;
+  } @else if $direction == (to left) {
+    border-width: $height / 2 $width $height / 2 0;
+    border-color: transparent $color transparent transparent;
+  } @else if $direction == (to top left) {
+    border-width: $height $width 0 0;
+    border-color: $color transparent transparent;
+  } @else if $direction == (to top right) {
+    border-width: 0 $width $height 0;
+    border-color: transparent $color transparent transparent;
+  } @else if $direction == (to bottom right) {
+    border-width: 0 0 $height $width;
+    border-color: transparent transparent $color;
+  } @else if $direction == (to bottom left) {
+    border-width: $width 0 0 $height;
+    border-color: transparent transparent transparent $color;
+  }
+}
