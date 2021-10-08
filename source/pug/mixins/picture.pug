@@ -33,13 +33,13 @@ mixin source(srcSet, extension, size=null)
   @param {Object} [options] - additional options (see below)
   @param {(string|string[]|null)} [options.classList=null] - a class of an <img> element, or an array of classes, or null if no class is specified
   @param {(number|boolean)} [options.retina=2] - a pixel density descriptor (integer unitless value), or true for the pixel density 2x, or false if no retina support is intended
-  @param {Object} [options.breakpoints] - a keyed collection of screen resolutions: the key is the resolution name and the value is the viewport width (eg: {desktop: 1280, tablet: 750}); if not specified it uses the value of the 'breakpoints' constant in layout.pug
+  @param {Object} [options.breakpoints] - a keyed collection of screen resolutions: the key is the resolution name and the value is the viewport width (eg: {desktop: 1280, tablet: 750}); if not specified it uses the value of the site.breakpoints in layout.pug
 mixin picture(fileName, alt, width, height, extensions, options={})
   -
     const {
       classList = null,
       retina = 2,
-      breakpoints = breakpoints,
+      breakpoints = site.breakpoints,
     } = options;
 
     const fallbackExtension = extensions[extensions.length - 1];
