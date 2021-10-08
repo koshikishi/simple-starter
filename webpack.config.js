@@ -1,6 +1,7 @@
 import path from 'path';
 
 const config = {
+  mode: (process.env.NODE_ENV === 'production') ? 'production' : 'development',
   entry: './source/js/main.js',
   output: {
     path: path.resolve(__dirname, 'build/js'),

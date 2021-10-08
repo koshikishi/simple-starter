@@ -15,8 +15,8 @@
     "eslint": "eslint source/js/",
     "stylelint": "stylelint \"source/sass/**/*.scss\" --syntax scss",
     "test": "npm run editorconfig && npm run pug-lint && npm run eslint && npm run stylelint",
-    "build": "gulp build",
-    "start": "gulp"
+    "build": "cross-env NODE_ENV=production gulp build",
+    "start": "cross-env NODE_ENV=development gulp"
   },
   "dependencies": {},
   "devDependencies": {
@@ -27,6 +27,7 @@
     "autoprefixer": "^10.3.7",
     "babel-loader": "^8.2.2",
     "browser-sync": "^2.27.5",
+    "cross-env": "^7.0.3",
     "cssnano": "^5.0.8",
     "del": "^6.0.0",
     "eslint": "^7.32.0",
