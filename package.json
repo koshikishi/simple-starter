@@ -71,10 +71,5 @@
     "source/js/**/*.js",
     "source/img/**/*.svg",
     "source/sass/**/*.scss"
-  ],
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
-  }
+  ]
 }
