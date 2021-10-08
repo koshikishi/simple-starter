@@ -11,8 +11,8 @@ import cssnano from 'cssnano';
 import rename from 'gulp-rename';
 import pug from 'gulp-pug';
 import htmlmin from 'gulp-html-minifier-terser';
-import babel from 'gulp-babel';
-import terser from 'gulp-terser';
+import webpack from 'webpack-stream';
+import webpackConfig from './webpack.config';
 import squoosh from 'gulp-libsquoosh';
 import path from 'path';
 import svgmin from 'gulp-svgmin';
@@ -81,16 +81,8 @@ export const html = () => src(`${PATHS.src.root}/*.pug`)
   .pipe(dest(PATHS.build.root));
 
 // Transpilation and minification of *.js script files
-export const scripts = () => src(`${PATHS.src.js}/**/*.js`)
-  .pipe(sourcemaps.init())
-  .pipe(babel({
-    presets: ['@babel/env'],
-  }))
-  .pipe(terser())
-  .pipe(rename({
-    suffix: '.min',
-  }))
-  .pipe(sourcemaps.write('.'))
+export const scripts = () => src(`${PATHS.src.js}/main.js`)
+  .pipe(webpack(webpackConfig))
   .pipe(dest(PATHS.build.js));
 
 // Compressing raster image files with generation of *.webp format
