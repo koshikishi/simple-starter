@@ -38,6 +38,7 @@
 @function -get-font-src($font-family, $weight-name, $font-weight, $font-style, $extensions) {
   $font-name: -get-local-font-name($font-family, $weight-name, $font-weight, $font-style, false);
   $font-name-spaceless: -get-local-font-name($font-family, $weight-name, $font-weight, $font-style, true);
+  $font-file-name: string.to-lower-case(to-spaceless($font-family) + "-" + $font-weight + if($font-style == normal, "", string.slice($font-style, 1, 1)));
   $modifiers: (
     "eot": "?",
     "svg": "#" + replace($font-family, " ", "_")
@@ -55,7 +56,7 @@
   @each $extension in $extensions {
     $extension-modified: if(map.has-key($modifiers, $extension), $extension + map.get($modifiers, $extension), $extension);
     $format: if(map.has-key($formats, $extension), map.get($formats, $extension), $extension);
-    $src: list.append($src, url("../fonts/#{string.to-lower-case($font-name-spaceless)}.#{$extension-modified}") format(string.quote($format)), comma);
+    $src: list.append($src, url("../fonts/#{$font-file-name}.#{$extension-modified}") format(string.quote($format)), comma);
   }
 
   @return $src;
