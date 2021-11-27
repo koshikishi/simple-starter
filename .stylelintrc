@@ -48,8 +48,6 @@
 
     "scss/at-each-key-value-single-line": true,
 
-    "scss/at-function-pattern": null,
-
     "scss/at-mixin-argumentless-call-parentheses": "always",
 
     "scss/dollar-variable-colon-newline-after": "always-multi-line",
