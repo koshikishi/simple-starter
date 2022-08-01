@@ -28,7 +28,7 @@
     "browser-sync": "^2.27.10",
     "cross-env": "^7.0.3",
     "cssnano": "^5.1.12",
-    "del": "^7.0.0",
+    "del": "^6.1.1",
     "eslint": "^8.21.0",
     "gulp": "^4.0.2",
     "gulp-html-minifier-terser": "^6.0.1",
