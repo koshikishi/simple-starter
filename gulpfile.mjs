@@ -1,4 +1,4 @@
-import {src, dest, watch, series, parallel} from 'gulp';
+import gulp from 'gulp';
 import plumber from 'gulp-plumber';
 import sourcemaps from 'gulp-sourcemaps';
 import dartSass from 'sass';
@@ -12,14 +12,15 @@ import rename from 'gulp-rename';
 import pug from 'gulp-pug';
 import htmlmin from 'gulp-html-minifier-terser';
 import webpack from 'webpack-stream';
-import webpackConfig from './webpack.config';
+import webpackConfig from './webpack.config.mjs';
 import squoosh from 'gulp-libsquoosh';
 import path from 'path';
 import svgmin from 'gulp-svgmin';
 import svgstore from 'gulp-svgstore';
-import del from 'del';
+import {deleteAsync} from 'del';
 import {create as bsCreate} from 'browser-sync';
 
+const {src, dest, watch, series, parallel} = gulp;
 const browserSync = bsCreate();
 
 // Paths to files
@@ -167,7 +168,7 @@ export const sprite = () => src(`${PATHS.src.icons}/*.svg`)
   .pipe(dest(PATHS.build.images));
 
 // Deleting files in the build directory before copying
-export const clean = () => del(PATHS.build.root);
+export const clean = () => deleteAsync(PATHS.build.root);
 
 // Copying files to the build directory
 export const copy = (done) => {
