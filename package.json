@@ -54,12 +54,14 @@
     "webpack-stream": "^7.0.0"
   },
   "engines": {
-    "node": "^14 || ^16"
+    "node": "^16"
   },
   "browserslist": [
     "last 2 versions",
     "not dead",
-    "not ie <= 11"
+    "not ie <= 11",
+    "not op_mini all",
+    "not < 0.2%"
   ],
   "editorconfig-cli": [
     "*.json",
