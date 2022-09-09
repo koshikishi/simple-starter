@@ -1,4 +1,4 @@
-.visually-hidden:not(:focus, :active) {
+.visually-hidden:not(:focus):not(:active) {
   @include visually-hidden();
 }
 
