@@ -13,10 +13,10 @@ import pug from 'gulp-pug';
 import htmlmin from 'gulp-html-minifier-terser';
 import webpack from 'webpack-stream';
 import webpackConfig from './webpack.config.mjs';
-import squoosh from 'gulp-libsquoosh';
-import path from 'path';
+import sharp from 'gulp-sharp-optimize-images';
 import svgmin from 'gulp-svgmin';
 import svgstore from 'gulp-svgstore';
+import path from 'path';
 import {deleteAsync} from 'del';
 import {create as bsCreate} from 'browser-sync';
 
@@ -85,26 +85,29 @@ export const scripts = () => src(`${Path.Source.JS}/main.js`)
   .pipe(dest(Path.Build.JS));
 
 // Compressing raster image files with generation of *.webp format
-export const optimizeImages = () => src(`${Path.Source.IMAGES}/**/*.{png,jpg}`)
-  .pipe(squoosh((file) => ({
-    encodeOptions: {
-      ...(path.dirname(file.path).split(path.sep).pop() === 'favicons' ? {} : {
-        webp: {
-          quality: 90,
-          method: 6,
-        },
-      }),
-      ...(path.extname(file.path) === '.png' ? {
-        oxipng: {
-          level: 6,
-        },
-      } : {
-        mozjpeg: {
-          quality: 80,
-        },
-      }),
+export const optimizeImages = () => src([
+  `${Path.Source.IMAGES}/**/*.{png,jpg}`,
+  `!${Path.Source.FAVICONS}/**`,
+])
+  .pipe(sharp({
+    webp: {
+      quality: 90,
+      effort: 6,
     },
-  })))
+  }))
+  .pipe(dest(Path.Build.IMAGES))
+  .pipe(src(`${Path.Source.IMAGES}/**/*.{png,jpg}`))
+  .pipe(sharp({
+    png_to_png: {
+      compressionLevel: 9,
+      effort: 10,
+    },
+    jpg_to_jpg: {
+      quality: 80,
+      progressive: true,
+      mozjpeg: true,
+    },
+  }))
   .pipe(dest(Path.Build.IMAGES));
 
 // Compressing vector image *.svg files
@@ -129,11 +132,9 @@ export const fastWebp = () => src([
   `${Path.Source.IMAGES}/**/*.{png,jpg}`,
   `!${Path.Source.FAVICONS}/**`,
 ])
-  .pipe(squoosh({
-    encodeOptions: {
-      webp: {
-        method: 0,
-      },
+  .pipe(sharp({
+    webp: {
+      effort: 0,
     },
   }))
   .pipe(dest(Path.Build.IMAGES));
