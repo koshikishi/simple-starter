@@ -25,7 +25,7 @@
 /// @param {string | bool} $orientation [false] - an optional argument to specify a viewport orientation (landscape or portrait)
 /// @output a @media at-rule for targeting viewports with a width in the specified range
 @mixin media-min-max($min, $max, $orientation: false) {
-  @media #{media-query($min-width: $min, $max-width: $max - 1, $orientation: $orientation)} {
+  @media #{media-query($min-width: $min, $max-width: $max - 1px, $orientation: $orientation)} {
     @content;
   }
 }
@@ -57,7 +57,7 @@
 /// @param {string | bool} $orientation [false] - an optional argument to specify a viewport orientation (landscape or portrait)
 /// @output a @media at-rule for targeting viewports with a height in the specified range
 @mixin media-min-max-height($min, $max, $orientation: false) {
-  @media #{media-query($min-height: $min, $max-height: $max - 1, $orientation: $orientation)} {
+  @media #{media-query($min-height: $min, $max-height: $max - 1px, $orientation: $orientation)} {
     @content;
   }
 }
