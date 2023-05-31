@@ -1,6 +1,6 @@
 {
   "name": "simple-starter",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Basic boilerplate to start development (pug + sass)",
   "homepage": "https://github.com/koshikishi/simple-starter",
   "bugs": {
