@@ -46,7 +46,7 @@
 ///
 /// @example scss - setting two backgrounds in WebP and AVIF to .foo
 ///   .foo {
-///     @include background-modern(url("../img/image1.jpg") url("../img/image2.jpg"), webp avif);
+///     @include background-modern(url("../images/image1.jpg") url("../images/image2.jpg"), webp avif);
 ///   }
 @mixin background-modern($images, $extensions: webp) {
   // stylelint-disable order/order

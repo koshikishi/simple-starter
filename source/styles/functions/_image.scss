@@ -5,5 +5,5 @@
 /// @param {string} $image - an image filename, an url() resource or a gradient
 /// @return {string} - an url() resource based on the passed $image
 @function to-url($image) {
-  @return if(string.index($image, "url") or string.index($image, "gradient"), $image, url("../img/#{$image}"));
+  @return if(string.index($image, "url") or string.index($image, "gradient"), $image, url("../images/#{$image}"));
 }

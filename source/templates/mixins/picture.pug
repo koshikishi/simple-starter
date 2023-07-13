@@ -53,13 +53,13 @@ mixin picture(fileName, alt, width, height, extensions, options={})
      */
     const getSrcSet = (extension, device = null) => {
       if (!retina || retina === 1) {
-        return `img/${fileName}${device ? `-${device}` : ''}.${extension}`;
+        return `images/${fileName}${device ? `-${device}` : ''}.${extension}`;
       }
 
       const srcSet = [];
 
       for (let i = 1; i <= (retina === true ? 2 : retina); i++) {
-        srcSet.push(`img/${fileName}${device ? `-${device}` : ''}${i === 1 ? '' : `@${i}x`}.${extension} ${i}x`);
+        srcSet.push(`images/${fileName}${device ? `-${device}` : ''}${i === 1 ? '' : `@${i}x`}.${extension} ${i}x`);
       }
 
       return srcSet.join(', ');
@@ -73,7 +73,7 @@ mixin picture(fileName, alt, width, height, extensions, options={})
       +source(getSrcSet(extension), extension)
     img(
       class=classList
-      src=`img/${fileName}.${fallbackExtension}`
+      src=`images/${fileName}.${fallbackExtension}`
       srcset=(retina === true || retina > 1) ? getSrcSet(fallbackExtension).split(', ').slice(1).join(', ') : null
       alt=alt
       width=width

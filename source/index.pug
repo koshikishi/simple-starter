@@ -1,4 +1,4 @@
-extends pug/layout
+extends templates/layout
 
 prepend variables
   -
@@ -21,22 +21,26 @@ append variables
     });
     links.push({
       rel: 'icon',
-      href: 'img/favicons/favicon.svg',
+      href: 'images/favicons/favicon.svg',
       type: 'image/svg+xml',
     });
     links.push({
       rel: 'apple-touch-icon',
-      href: 'img/favicons/apple.png',
+      href: 'images/favicons/apple.png',
     });
-      links.push({
+    links.push({
       rel: 'manifest',
       href: 'manifest.webmanifest',
     });
 
 block content
-  include pug/data
-  //- include pug/sprite
+  include templates/data
+  //- include templates/sprite
 
-  include pug/components/header
-  include pug/pages/main
-  include pug/components/footer
+  include templates/components/header
+
+  main.main
+    div.container
+      p There will be something awesome!
+
+  include templates/components/footer

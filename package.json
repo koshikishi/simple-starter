@@ -11,9 +11,9 @@
   "repository": "github:koshikishi/simple-starter",
   "scripts": {
     "editorconfig": "editorconfig-cli",
-    "pug-lint": "pug-lint source/*.pug source/pug/**/*.pug",
+    "pug-lint": "pug-lint source/*.pug source/templates/**/*.pug",
     "eslint": "eslint source/js/",
-    "stylelint": "stylelint \"source/sass/**/*.scss\"",
+    "stylelint": "stylelint \"source/styles/**/*.scss\"",
     "test": "npm run editorconfig && npm run pug-lint && npm run eslint && npm run stylelint",
     "build": "cross-env NODE_ENV=production gulp build",
     "start": "cross-env NODE_ENV=development gulp"
@@ -66,9 +66,9 @@
     "*.json",
     "*.js",
     "source/*.pug",
-    "source/pug/**/*.pug",
+    "source/templates/**/*.pug",
     "source/js/**/*.js",
-    "source/img/**/*.svg",
-    "source/sass/**/*.scss"
+    "source/images/**/*.svg",
+    "source/styles/**/*.scss"
   ]
 }

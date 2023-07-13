@@ -27,18 +27,18 @@ const browserSync = bsCreate();
 const Path = {
   Source: {
     ROOT: 'source',
-    STYLES: 'source/sass',
+    STYLES: 'source/styles',
     JS: 'source/js',
-    IMAGES: 'source/img',
-    ICONS: 'source/img/icons',
-    FAVICONS: 'source/img/favicons',
+    IMAGES: 'source/images',
+    ICONS: 'source/images/icons',
+    FAVICONS: 'source/images/favicons',
     FONTS: 'source/fonts',
   },
   Build: {
     ROOT: 'build',
     STYLES: 'build/css',
     JS: 'build/js',
-    IMAGES: 'build/img',
+    IMAGES: 'build/images',
   },
 };
 
