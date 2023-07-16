@@ -14,7 +14,7 @@ append variables
       content: '#ffffff',
     });
   //-
-    preloads.push('fonts/font-regular.woff2');
+    preloads.push('fonts/font-400.woff2');
     links.push({
       rel: 'icon',
       href: 'favicon.ico',
@@ -44,3 +44,6 @@ block content
       p There will be something awesome!
 
   include templates/components/footer
+
+append scripts
+  //- script(src="js/main.min.js")
