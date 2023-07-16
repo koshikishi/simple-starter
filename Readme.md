@@ -1,2 +1,2 @@
 # Simple Starter
-Basic boilerplate to start development (pug + sass)
+The basic boilerplate to start development.
