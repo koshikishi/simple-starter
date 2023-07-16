@@ -4,6 +4,7 @@
   @param {string} iconName - a name of the icon in the sprite
   @param {number} width - a width of the icon (unitless integer value)
   @param {number} height - a height of the icon (unitless integer value)
-mixin svg(iconName, width, height)
+  @param {boolean} [isInline=false] - true if the sprite is included in the template, or false if it is an external file
+mixin svg(iconName, width, height, isInline=false)
   svg(width=width height=height)&attributes(attributes)
-    use(href=`images/sprite.svg#${iconName}`)
+    use(href=`${isInline ? '' : 'images/sprite.svg'}#${iconName}`)
