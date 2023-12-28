@@ -17,7 +17,6 @@
 ///     @include background-modern(url("../images/image1.jpg") url("../images/image2.jpg"), webp avif);
 ///   }
 @mixin background-modern($images, $extensions: webp) {
-  // stylelint-disable order/order
   $background-normal: ();
   $selector: ".no-js &";
   $formats: jpg jpeg png;
@@ -49,7 +48,6 @@
       background-image: $background-modern;
     }
   }
-  // stylelint-enable order/order
 }
 
 /// Creates a @media at-rule to apply styles for retina displays.
@@ -84,7 +82,6 @@
 ///     @include background-retina("image.jpg" "image@2x.jpg", 100px 50px, webp);
 ///   }
 @mixin background-retina($images, $sizes, $extensions: null) {
-  // stylelint-disable order/order
   $is-multiple: meta.type-of(list.nth($images, 1)) == list;
   $max-retina: list.length(if($is-multiple, list.nth($images, 1), $images));
   $background-normal: ();
@@ -116,5 +113,4 @@
       }
     }
   }
-  // stylelint-enable order/order
 }
