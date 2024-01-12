@@ -25,8 +25,8 @@
 /// @param {number} $number - a number of lines after which the content will be clamped
 /// @output a block of styles for truncating the content
 @mixin line-clamp($number) {
-  display: -webkit-box; // stylelint-disable-line value-no-vendor-prefix
+  display: -webkit-box;
   overflow: hidden;
   -webkit-line-clamp: $number;
-  -webkit-box-orient: vertical; // stylelint-disable-line property-no-vendor-prefix
+  -webkit-box-orient: vertical;
 }

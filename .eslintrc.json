@@ -1,14 +1,14 @@
 {
   "root": true,
+  "extends": "eslint:recommended",
+  "env": {
+    "browser": true,
+    "es2024": true
+  },
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "env": {
-    "es2017": true,
-    "browser": true
-  },
-  "extends": "eslint:recommended",
   "rules": {
     // Possible Problems
     // https://eslint.org/docs/rules/#possible-problems
@@ -20,6 +20,7 @@
 
     // Suggestions
     // https://eslint.org/docs/rules/#suggestions
+    // ---------------------------------------------
     "accessor-pairs": "error",
     "arrow-body-style": ["error", "as-needed"],
     "camelcase": "error",
@@ -44,7 +45,7 @@
     "strict": ["error", "global"],
 
     // Layout & Formatting
-    // https://eslint.org/docs/rules/#layout-formatting
+    // https://eslint.org/docs/rules/#layout--formatting
     // ---------------------------------------------
     "arrow-parens": "error",
     "brace-style": "error",
