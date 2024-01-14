@@ -8,6 +8,7 @@
   },
   "license": "MIT",
   "author": "Anton Northern",
+  "type": "module",
   "repository": "github:koshikishi/simple-starter",
   "scripts": {
     "editorconfig": "editorconfig-cli",

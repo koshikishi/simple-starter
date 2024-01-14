@@ -12,7 +12,7 @@ import rename from 'gulp-rename';
 import pug from 'gulp-pug';
 import htmlmin from 'gulp-html-minifier-terser';
 import webpack from 'webpack-stream';
-import webpackConfig from './webpack.config.mjs';
+import webpackConfig from './webpack.config.js';
 import sharp from 'gulp-sharp-optimize-images';
 import svgmin from 'gulp-svgmin';
 import svgstore from 'gulp-svgstore';
