@@ -1,4 +1,4 @@
-include mixins
+include mixins.pug
 
 block variables
   -
@@ -52,13 +52,13 @@ html(class=html.classList)&attributes(html.attributes)
     block meta
       each attributes in meta
         meta&attributes(attributes)
-    title!= site.title
+    title= site.title
     block preloads
       each preload in preloads
         if typeof preload === 'string'
-          link(rel="preload" href!=preload as="font" type="font/woff2" crossorigin)
+          link(rel="preload" href=preload as="font" type="font/woff2" crossorigin)
         else
-          link(rel="preload" href!=preload.href as=preload.as || 'font' type=preload.type || 'font/woff2' crossorigin)
+          link(rel="preload" href=preload.href as=preload.as || 'font' type=preload.type || 'font/woff2' crossorigin)
     script.
       (() => {
         document.documentElement.classList.remove('no-js');
@@ -83,7 +83,7 @@ html(class=html.classList)&attributes(html.attributes)
     block styles
       each style in styles
         if typeof style === 'string'
-          link(rel="stylesheet" href!=style)
+          link(rel="stylesheet" href=style)
         else
           link(rel="stylesheet")&attributes(style)
     block links
