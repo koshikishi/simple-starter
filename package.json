@@ -14,7 +14,7 @@
     "editorconfig": "editorconfig-cli",
     "pug-lint": "pug-lint source/*.pug source/templates/**/*.pug",
     "eslint": "eslint source/js/",
-    "stylelint": "stylelint \"source/styles/**/*.scss\"",
+    "stylelint": "stylelint source/styles/**/*.scss",
     "test": "npm run editorconfig && npm run pug-lint && npm run eslint && npm run stylelint",
     "build": "cross-env NODE_ENV=production gulp build",
     "start": "cross-env NODE_ENV=development gulp"
@@ -57,11 +57,12 @@
   "engines": {
     "node": "^18 || ^20"
   },
+  "private": true,
   "browserslist": [
     "last 2 versions",
     "not dead",
-    "not ie <= 11",
     "not op_mini all",
+    "not and_uc > 0",
     "not < 0.2%"
   ],
   "editorconfig-cli": [
