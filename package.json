@@ -55,7 +55,7 @@
     "webpack-stream": "^7.0.0"
   },
   "engines": {
-    "node": "^18 || ^20"
+    "node": "^18 || >=20"
   },
   "private": true,
   "browserslist": [

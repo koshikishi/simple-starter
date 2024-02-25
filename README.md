@@ -1,6 +1,6 @@
 # Simple Starter
 The basic boilerplate to start development.
-- Works on Node.js 16+
+- Works on Node.js 18+
 - Built with Gulp + Webpack
 - Designed for latest vesions of Chrome, Firefox, Safari, Opera, Edge
 
