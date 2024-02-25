@@ -49,7 +49,7 @@ mixin picture(fileName, alt, width, height, extensions, options={})
 
      * @param {string} extension - an extension of the specified image files
      * @param {(string|null)} [device=null] - a name of a device for which the image is intended, or null if no device is specified
-     * @return {string} - a comma-separated list of strings indicating a set of possible images
+     * @return {string} a comma-separated list of strings indicating a set of possible images
      */
     const getSrcSet = (extension, device = null) => {
       if (!retina || retina === 1) {

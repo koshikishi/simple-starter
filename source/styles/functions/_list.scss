@@ -5,7 +5,7 @@
 ///
 /// @param {list} $list - a list of sublists
 /// @param {number} $index - an index of a list item to be retrieved
-/// @return {list} - a new list from the $index-th items of the $list sublists
+/// @return {list} a new list from the $index-th items of the $list sublists
 @function nth-of-lists($list, $index) {
   $new-list: ();
 
