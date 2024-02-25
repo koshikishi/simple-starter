@@ -66,17 +66,13 @@ html(class=html.classList)&attributes(html.attributes)
         checkSupport('webp', 'data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==');
         checkSupport('avif', 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgANogQEAwgMg8f8D///8WfhwB8+ErK42A=');
 
-        function addClass(cls) {
-          document.documentElement.classList.add(cls);
-        }
-
         function checkSupport(format, base64) {
           const image = new Image();
 
           image.src = base64;
 
           image.onload = image.onerror = () => {
-            addClass(image.height > 0 ? format : `no-${format}`);
+            document.documentElement.classList.add(image.height > 0 ? format : `no-${format}`);
           };
         }
       })();
