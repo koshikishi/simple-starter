@@ -1,3 +1,5 @@
+import {rmSync} from 'node:fs';
+import path from 'node:path';
 import gulp from 'gulp';
 import plumber from 'gulp-plumber';
 import sourcemaps from 'gulp-sourcemaps';
@@ -16,8 +18,6 @@ import webpackConfig from './webpack.config.js';
 import sharp from 'gulp-sharp-optimize-images';
 import svgmin from 'gulp-svgmin';
 import svgstore from 'gulp-svgstore';
-import path from 'path';
-import {deleteAsync} from 'del';
 import {create as bsCreate} from 'browser-sync';
 
 const {src, dest, watch, series, parallel} = gulp;
@@ -28,7 +28,7 @@ const Path = {
   Source: {
     ROOT: 'source',
     STYLES: 'source/styles',
-    JS: 'source/js',
+    SCRIPTS: 'source/js',
     IMAGES: 'source/images',
     ICONS: 'source/images/icons',
     FAVICONS: 'source/images/favicons',
@@ -37,12 +37,12 @@ const Path = {
   Build: {
     ROOT: 'build',
     STYLES: 'build/css',
-    JS: 'build/js',
+    SCRIPTS: 'build/js',
     IMAGES: 'build/images',
   },
 };
 
-// Compiling *.css files from *.scss with autoprefixer and minification
+// Compiles *.css files from *.scss with autoprefixer and minification
 const sass = gulpSass(dartSass);
 
 export const styles = () => src(`${Path.Source.STYLES}/style.scss`)
@@ -57,7 +57,6 @@ export const styles = () => src(`${Path.Source.STYLES}/style.scss`)
           method: 'copy',
         },
       },
-      enableClientSidePolyfills: false,
     }),
     autoprefixer(),
     cssnano(),
@@ -69,7 +68,7 @@ export const styles = () => src(`${Path.Source.STYLES}/style.scss`)
   .pipe(dest(Path.Build.STYLES))
   .pipe(browserSync.stream());
 
-// Compiling *.html files from *.pug with minification
+// Compiles *.html files from *.pug with minification
 export const html = () => src(`${Path.Source.ROOT}/*.pug`)
   .pipe(pug())
   .pipe(htmlmin({
@@ -79,12 +78,12 @@ export const html = () => src(`${Path.Source.ROOT}/*.pug`)
   }))
   .pipe(dest(Path.Build.ROOT));
 
-// Transpilation and minification of *.js script files
-export const scripts = () => src(`${Path.Source.JS}/main.js`)
+// Transpiles and minifies *.js script files
+export const scripts = () => src(`${Path.Source.SCRIPTS}/main.js`)
   .pipe(webpack(webpackConfig))
-  .pipe(dest(Path.Build.JS));
+  .pipe(dest(Path.Build.SCRIPTS));
 
-// Compressing raster image files with generation of *.webp and/or *.avif format
+// Optimizes raster image files with generation of *.webp and/or *.avif format
 export const optimizeImages = () => src([
   `${Path.Source.IMAGES}/**/*.{png,jpg}`,
   `!${Path.Source.FAVICONS}/**`,
@@ -92,12 +91,10 @@ export const optimizeImages = () => src([
   .pipe(sharp({
     webp: {
       quality: 80,
-      effort: 6,
     },
     // Uncomment below to enable *.avif images generation
     // avif: {
     //   quality: 65,
-    //   effort: 9,
     // },
   }))
   .pipe(dest(Path.Build.IMAGES))
@@ -105,7 +102,7 @@ export const optimizeImages = () => src([
   .pipe(sharp({
     png_to_png: {
       compressionLevel: 9,
-      effort: 10,
+      adaptiveFiltering: true,
     },
     jpg_to_jpg: {
       quality: 80,
@@ -115,7 +112,7 @@ export const optimizeImages = () => src([
   }))
   .pipe(dest(Path.Build.IMAGES));
 
-// Compressing vector image *.svg files
+// Optimizes vector image *.svg files
 export const optimizeSvg = () => src([
   `${Path.Source.IMAGES}/**/*.svg`,
   `!${Path.Source.ICONS}/**`,
@@ -125,14 +122,14 @@ export const optimizeSvg = () => src([
   }))
   .pipe(dest(Path.Build.IMAGES));
 
-// Copying image files
+// Copies image files
 export const copyImages = () => src([
   `${Path.Source.IMAGES}/**/*.{png,jpg,svg}`,
   `!${Path.Source.ICONS}/**`,
 ])
   .pipe(dest(Path.Build.IMAGES));
 
-// Fast generation of image files in *.webp and/or *.avif format
+// Quickly generates of image files in *.webp and/or *.avif format
 export const fastImages = () => src([
   `${Path.Source.IMAGES}/**/*.{png,jpg}`,
   `!${Path.Source.FAVICONS}/**`,
@@ -148,7 +145,7 @@ export const fastImages = () => src([
   }))
   .pipe(dest(Path.Build.IMAGES));
 
-// Creating SVG-sprite
+// Creates SVG-sprite
 export const sprite = () => src(`${Path.Source.ICONS}/*.svg`)
   .pipe(svgmin((file) => {
     const prefix = path.basename(file.relative, path.extname(file.relative));
@@ -175,10 +172,16 @@ export const sprite = () => src(`${Path.Source.ICONS}/*.svg`)
   .pipe(rename('sprite.svg'))
   .pipe(dest(Path.Build.IMAGES));
 
-// Deleting files in the build directory before copying
-export const clean = () => deleteAsync(Path.Build.ROOT);
+// Deletes files in the build directory before copying
+export const clean = (done) => {
+  rmSync(Path.Build.ROOT, {
+    force: true,
+    recursive: true,
+  });
+  done();
+};
 
-// Copying files to the build directory
+// Copies files to the build directory
 export const copy = (done) => {
   src([
     `${Path.Source.FONTS}/**/*.{woff,woff2}`,
@@ -191,13 +194,13 @@ export const copy = (done) => {
   done();
 };
 
-// Refreshing page
+// Refreshes page
 export const refresh = (done) => {
   browserSync.reload();
   done();
 };
 
-// Start Browsersync server
+// Starts Browsersync server
 export const server = (done) => {
   browserSync.init({
     ui: false,
@@ -208,14 +211,14 @@ export const server = (done) => {
   done();
 };
 
-// Watching changes in project files
+// Watches changes in project files
 export const watcher = () => {
   watch(`${Path.Source.STYLES}/**/*.scss`, styles);
-  watch(`${Path.Source.JS}/**/*.js`, scripts);
+  watch(`${Path.Source.SCRIPTS}/**/*.js`, scripts);
   watch(`${Path.Source.ROOT}/**/*.pug`, series(html, refresh));
 };
 
-// Build the project for production
+// Builds the project for production
 export const build = series(
   clean,
   parallel(
@@ -229,7 +232,7 @@ export const build = series(
   ),
 );
 
-// Build the project and start Browsersync server
+// Builds the project and start Browsersync server
 export const dev = series(
   clean,
   parallel(
