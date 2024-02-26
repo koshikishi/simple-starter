@@ -1,4 +1,4 @@
-extends templates/layout.pug
+extends templates/layout
 
 prepend variables
   -
@@ -34,16 +34,16 @@ append variables
     });
 
 block content
-  include templates/data.pug
-  //- include templates/sprite.pug
+  include templates/data
+  //- include templates/sprite
 
-  include templates/components/header.pug
+  include templates/components/header
 
   main.main
     div.container
       p There will be something awesome!
 
-  include templates/components/footer.pug
+  include templates/components/footer
 
 append scripts
   //- script(src="js/main.min.js")
