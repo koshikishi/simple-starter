@@ -193,8 +193,8 @@ The project has a set of mixins to simplify the generation of `@media` at-rules 
 @include media-min-max-height(<min-height>, <max-height>) { ... };
 
 // To apply styles based on viewport orientation
-@include landscape() { ... };
-@include portrait() { ... };
+@include landscape { ... };
+@include portrait { ... };
 ```
 
 For detailed reference, read the comments in the [mixin file](source/styles/mixins/_media.scss).
@@ -227,10 +227,10 @@ The project has set of mixins to make it easier to add background images to styl
 Various helper mixins designed to aid the developer with repetitive tasks.
 ```
 // Hides an element from the viewport
-@include visually-hidden();
+@include visually-hidden;
 
 // Resets the default browser styles for lists
-@include list-reset();
+@include list-reset;
 
 // Truncates contents of a block to the specified number of lines and adds an ellipsis at the end
 @include line-clamp(<number>);
@@ -276,7 +276,7 @@ slide-01-desktop@2x.jpg
 #### WebP and AVIF
 Most modern browsers support progressive image formats (WebP and AVIF). However, you do not have to prepare them manually, they will be generated automatically when you create the build.
 
-By default, only WebP files are generated. If you also need the AVIF format, uncomment the corresponding lines in the `optimizeImages` and `fastImages` tasks in the `gulpfile.mjs`.
+By default, only WebP files are generated. If you also need the AVIF format, uncomment the corresponding lines in the `optimizeImages` and `fastImages` tasks in the `gulpfile.js`.
 
 #### Adding images in the template
 The project has a mixin that simplifies the insertion of responsive images into the template.

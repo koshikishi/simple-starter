@@ -65,7 +65,7 @@
 /// Creates a @media at-rule to apply styles for viewports with the landscape orientation.
 ///
 /// @output a @media at-rule for targeting viewports with the landscape orientation
-@mixin landscape() {
+@mixin landscape {
   @media #{media-query($orientation: landscape)} {
     @content;
   }
@@ -74,7 +74,7 @@
 /// Creates a @media at-rule to apply styles for viewports with the portrait orientation.
 ///
 /// @output a @media at-rule for targeting viewports with the portrait orientation
-@mixin portrait() {
+@mixin portrait {
   @media #{media-query($orientation: portrait)} {
     @content;
   }
