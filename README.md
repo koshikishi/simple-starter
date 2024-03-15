@@ -1,4 +1,10 @@
 # Simple Starter
+
+> [!IMPORTANT]
+> This template is archived and no longer maintained. Consider using one of these templates instead:
+> - https://github.com/koshikishi/html-template
+> - https://github.com/koshikishi/pug-template
+
 The basic boilerplate to start development.
 - Works on Node.js 18+
 - Built with Gulp + Webpack
